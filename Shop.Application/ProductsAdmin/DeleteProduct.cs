@@ -5,11 +5,11 @@ using Shop.Database;
 
 namespace Shop.Application.ProductsAdmin
 {
-    public class DeleteProducts
+    public class DeleteProduct
     {
         private readonly ApplicationDbContext _ctx;
 
-        public DeleteProducts(ApplicationDbContext ctx)
+        public DeleteProduct(ApplicationDbContext ctx)
         {
             _ctx = ctx;
         }

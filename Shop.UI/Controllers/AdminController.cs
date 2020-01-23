@@ -1,7 +1,33 @@
+using Microsoft.AspNetCore.Mvc;
+using Shop.Application.CreateProducts;
+using Shop.Application.ProductsAdmin;
+using Shop.Database;
+
 namespace Shop.UI.Controllers
 {
-    public class AdminController
+    [Route("[controller]")]
+    public class AdminController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public AdminController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         
+       [HttpGet("products")] 
+       public IActionResult GetProducts() => Ok(new GetProducts(_context).Do());
+       
+       [HttpGet("products/{id}")] 
+       public IActionResult GetProduct(int id) => Ok(new GetProduct(_context).Do(id));
+       
+       [HttpPost("products")] 
+       public IActionResult CreateProducts(CreateProducts.ProductViewModel vm) => Ok(new CreateProducts(_context).Do(vm));
+       
+       [HttpDelete("products/{id}")] 
+       public IActionResult DeleteProducts(int id) => Ok(new DeleteProduct(_context).Do(id));
+       
+       [HttpPut("products")] 
+       public IActionResult UpdateProduct(UpdateProduct.ProductViewModel vm) => Ok(new UpdateProduct(_context).Do(vm));
     }
 }
