@@ -1,10 +1,10 @@
 var app = new Vue({
     el: '#app',
     data: {
-        products:  [],
+        products:[],
         selectedProduct: null,
         newStock: {
-            id: 0,
+            productId: 0,
             description: 'Size',
             qty: 10
         } 
@@ -15,7 +15,7 @@ var app = new Vue({
     methods: {
         getStock(){
             this.loading =  true;
-            axios.get('/Admin/stock')
+            axios.get('/Admin/stocks')
                 .then(res => {
                     console.log(res);
                     this.products = res.data
@@ -28,7 +28,25 @@ var app = new Vue({
                 })
         },
         selectProduct(product){
-            this.selectProduct = product;
+            this.selectedProduct = product;
+            this.newStock.productId = product.id
+        },
+        addStock(){
+            this.loading =  true;
+            axios.post('/Admin/stocks', this.newStock)
+                .then(res => {
+                    console.log(res);
+                    this.products.stock.push(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+                .then(() => {
+                    this.loading = false
+                })
+        },
+        updateStock(){
+            
         }
     }
 })

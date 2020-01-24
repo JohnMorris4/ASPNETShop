@@ -9,18 +9,40 @@
         <div class="column is-3">
             <table class="table">
                 <tr v-for="product in products" @@click="selectProduct(product)">
-                    <td>{{product.discription}}</td>
+                    <td>{{ product.description }}</td>
                 </tr>
             </table>
         </div>
-        <div class="column is-9">
-            
+        <div class="column is-6" v-if="selectedProduct">
+            <table class="table" >
+                <tr v-for="stock in selectedProduct.stock">
+                    <td><input class="input" type="text" v-model="stock.description"></td>
+                    <td><input class="input" type="text" v-model="stock.qty"></td>
+                </tr>
+            </table>
+            <a class="button is-warning" @@click="updateStock">Update Product</a>
         </div>
+        <div class="column is-3">
+            <h2 class="title">New Stock</h2>
+            <div class="field">
+                <div class="control">
+                    <input v-model="newStock.description" class="input">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input v-model="newStock.qty" class="input">
+                </div>
+            </div>
+            <a href="" class="button is-success" @@click="addStock">Add Stock</a>
+        </div>
+        
     </div>
+    
 </div>
 
 
 @section scripts {
-    <script src="js/admin/stocks.js"></script>    
+    <script src="~/js/admin/stocks.js"></script>    
 }
 

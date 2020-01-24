@@ -40,12 +40,12 @@ namespace Shop.UI.Controllers
        public IActionResult GetStocks() => Ok(new GetStock(_context).Do());
        
        [HttpPost("stocks")] 
-       public async Task<IActionResult> CreateStock([FromBody] CreateProduct.Request request) => Ok((await new CreateStock(_context).Do(request)));
+       public async Task<IActionResult> CreateStock([FromBody] CreateStock.Request request) => Ok((await new CreateStock(_context).Do(request)));
        
        [HttpDelete("stocks/{id}")] 
        public async Task<IActionResult> DeleteStock(int id) => Ok((await new DeleteStock(_context).Do(id)));
        
        [HttpPut("stocks")] 
-       public async Task<IActionResult> UpdateStock([FromBody] UpdateProduct.Request request) => Ok((await new UpdateStock(_context).Do(request)));
+       public async Task<IActionResult> UpdateStock([FromBody] UpdateStock.Request request) => Ok((await new UpdateStock(_context).Do(request)));
     }
 }
