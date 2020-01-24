@@ -16,4 +16,35 @@
     <ProjectReference Include="..\Shop.Application\Shop.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\.bower.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\npm.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\.bower.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\LICENSE.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib" />
+  </ItemGroup>
+
 </Project>

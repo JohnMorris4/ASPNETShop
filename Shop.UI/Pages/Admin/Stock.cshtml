@@ -1,0 +1,26 @@
+@page
+@model StockModel
+
+@{
+    
+}
+<div id="app">
+    <div class="columns">
+        <div class="column is-3">
+            <table class="table">
+                <tr v-for="product in products" @@click="selectProduct(product)">
+                    <td>{{product.discription}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="column is-9">
+            
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="js/admin/stocks.js"></script>    
+}
+

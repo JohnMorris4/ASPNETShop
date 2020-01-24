@@ -1,6 +1,8 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.CreateProducts;
 using Shop.Application.ProductsAdmin;
+using Shop.Application.StockAdmin;
 using Shop.Database;
 
 namespace Shop.UI.Controllers
@@ -22,12 +24,28 @@ namespace Shop.UI.Controllers
        public IActionResult GetProduct(int id) => Ok(new GetProduct(_context).Do(id));
        
        [HttpPost("products")] 
-       public IActionResult CreateProducts(CreateProducts.ProductViewModel vm) => Ok(new CreateProducts(_context).Do(vm));
+       public async Task<IActionResult> CreateProduct([FromBody] CreateProduct.Request request) => Ok((await new CreateProduct(_context).Do(request)));
        
        [HttpDelete("products/{id}")] 
-       public IActionResult DeleteProducts(int id) => Ok(new DeleteProduct(_context).Do(id));
+       public async Task<IActionResult> DeleteProducts(int id) => Ok((await new DeleteProduct(_context).Do(id)));
        
        [HttpPut("products")] 
-       public IActionResult UpdateProduct(UpdateProduct.ProductViewModel vm) => Ok(new UpdateProduct(_context).Do(vm));
+       public async Task<IActionResult> UpdateProduct([FromBody] UpdateProduct.Request request) => Ok((await new UpdateProduct(_context).Do(request)));
+       
+       
+       
+       
+       //Stock Actions
+       [HttpGet("stocks")] 
+       public IActionResult GetStocks() => Ok(new GetStock(_context).Do());
+       
+       [HttpPost("stocks")] 
+       public async Task<IActionResult> CreateStock([FromBody] CreateProduct.Request request) => Ok((await new CreateStock(_context).Do(request)));
+       
+       [HttpDelete("stocks/{id}")] 
+       public async Task<IActionResult> DeleteStock(int id) => Ok((await new DeleteStock(_context).Do(id)));
+       
+       [HttpPut("stocks")] 
+       public async Task<IActionResult> UpdateStock([FromBody] UpdateProduct.Request request) => Ok((await new UpdateStock(_context).Do(request)));
     }
 }
