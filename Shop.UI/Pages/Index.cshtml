@@ -11,7 +11,7 @@
     @{
         foreach (var p in Model.Products)
         {
-            <p>
+            <p asp-page="Product" asp-route-name="@p.Name">
                 @p.Name  - @p.Description  -   @p.Value
             </p>
         }

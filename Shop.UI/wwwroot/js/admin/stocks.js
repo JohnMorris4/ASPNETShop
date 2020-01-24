@@ -36,7 +36,7 @@ var app = new Vue({
             axios.post('/Admin/stocks', this.newStock)
                 .then(res => {
                     console.log(res);
-                    this.products.stock.push(res.data);
+                    this.selectedProduct.stock.push(res.data);
                 })
                 .catch(err => {
                     console.log(err);
@@ -46,7 +46,42 @@ var app = new Vue({
                 })
         },
         updateStock(){
-            
+            this.loading =  true;
+           
+            axios.put('/Admin/stocks', {
+                stock: this.selectedProduct.stock.map(x=> {
+                    return {
+                        id: x.id,
+                        description: x.description,
+                        qty: x.qty,
+                        productId: this.selectedProduct.id
+                    };
+                })
+            })
+                .then(res => {
+                    console.log(res);
+                    this.selectedProduct.stock.splice(index, 1);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+                .then(() => {
+                    this.loading = false
+                })
+        },
+        deleteStock(id, index) {
+            this.loading =  true;
+            axios.delete('/Admin/stocks/' + id)
+                .then(res => {
+                    console.log(res);
+                    this.selectedProduct.stock.splice(index, 1);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+                .then(() => {
+                    this.loading = false
+                })
         }
     }
-})
+});
