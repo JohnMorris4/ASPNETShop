@@ -11,4 +11,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Shop.Database\Shop.Database.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
 </Project>
