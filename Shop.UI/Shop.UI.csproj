@@ -44,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Views\Shared" />
     <Folder Include="wwwroot\lib" />
   </ItemGroup>
 
