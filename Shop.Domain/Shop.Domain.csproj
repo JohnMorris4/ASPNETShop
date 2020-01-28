@@ -10,4 +10,7 @@
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Stripe.net" Version="34.17.0" />
+  </ItemGroup>
 </Project>

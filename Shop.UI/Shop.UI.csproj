@@ -10,6 +10,7 @@
       <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Stripe.net" Version="34.17.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Views\Shared" />
     <Folder Include="wwwroot\lib" />
   </ItemGroup>
 
