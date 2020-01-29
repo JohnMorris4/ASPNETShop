@@ -3,16 +3,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Shop.Application.Cart;
 
+using Shop.Database;
+using Stripe;
+
 namespace Shop.UI.Pages.Checkout
 {
     public class PaymentModel : PageModel
     {
-        public PaymentModel(IConfiguration config)
+        public string PublicKey { get; }
+        private readonly ApplicationDbContext _ctx;
+
+        public PaymentModel(IConfiguration config, ApplicationDbContext ctx)
         {
-            PublicKey = config["Strike:PublicKey"].ToString();
+            _ctx = ctx;
+            PublicKey = config["Stripe:PublicKey"].ToString();
         }
 
-        public string PublicKey { get; }
+       
 
         public IActionResult OnGet()
         {
@@ -21,13 +28,32 @@ namespace Shop.UI.Pages.Checkout
             {
                 return RedirectToPage("/Checkout/CustomerInformation");
             }
-
             return Page();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string stripeEmail, string stripeToken)
         {
-            return Page();
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+            
+            var CartOrder = new GetOrder(HttpContext.Session, _ctx);
+
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                Source = stripeToken
+            });
+
+            var charge = charges.Create(new ChargeCreateOptions
+            {
+                Amount = CartOrder.GetTotalCharge(),
+                Description = "Shop Purchase",
+                Currency = "usd",
+                Customer = customer.Id
+            });
+            
+            
+            return RedirectToPage("/Index");
         }
     }
 }
