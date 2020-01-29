@@ -14,7 +14,7 @@ namespace Shop.Application.Cart
         private readonly ApplicationDbContext _ctx;
 
         public GetOrder(ISession session, ApplicationDbContext ctx)
-        {
+        { 
             _session = session;
             _ctx = ctx;
         }
