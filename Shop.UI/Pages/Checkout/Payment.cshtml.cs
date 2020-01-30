@@ -38,7 +38,7 @@ namespace Shop.UI.Pages.Checkout
             var customers = new CustomerService();
             var charges = new ChargeService();
             
-            var CartOrder = new GetOrder(HttpContext.Session, _ctx).Do();
+            var CartOrder = new Application.Cart.GetOrder(HttpContext.Session, _ctx).Do();
 
             var customer = customers.Create(new CustomerCreateOptions
             {
@@ -53,13 +53,13 @@ namespace Shop.UI.Pages.Checkout
                 Currency = "usd",
                 Customer = customer.Id
             });
-            
+            var sessionId = HttpContext.Session.Id;
             
             //create order
             await new CreateOrder(_ctx).Do(new CreateOrder.Request
             {
-                StripeReference = charge.OrderId,
-                
+                StripeReference = charge.Id,
+                SessionId = sessionId,
                 FirstName = CartOrder.CustomerInformation.FirstName,
                 LastName = CartOrder.CustomerInformation.LastName,
                 Address1 = CartOrder.CustomerInformation.Address1,

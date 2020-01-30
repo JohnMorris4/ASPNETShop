@@ -17,6 +17,7 @@ namespace Shop.Domain.Models
         public string Zipcode { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public OrderStatus Status { get; set; }
 
         public ICollection<OrderStock> OrderStocks { get; set; }
         
