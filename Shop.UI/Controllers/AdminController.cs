@@ -18,12 +18,7 @@ namespace Shop.UI.Controllers
         {
             _context = context;
         }
-        
-       
-       
-       
-       
-       //Stock Actions
+        //Stock Actions
        [HttpGet("stocks")] 
        public IActionResult GetStocks() => Ok(new GetStock(_context).Do());
        

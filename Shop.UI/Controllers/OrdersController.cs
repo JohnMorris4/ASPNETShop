@@ -1,20 +1,43 @@
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Orders;
+using Shop.Application.OrdersAdmin;
 using Shop.Database;
 
 namespace Shop.UI.Controllers
 {
     
     [Route("[controller]")]
-    public class OrdersController
+    [Authorize(Policy = "Manager")]
+    public class OrdersController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        // [HttpGet("")]
+        // public IActionResult GetOrders(
+        //     int status,
+        //     [FromServices] GetOrders getOrders) =>
+        //     Ok(getOrders.Do(status));
+        //
+        // [HttpGet("{id}")]
+        // public IActionResult GetOrder(
+        //     int id,
+        //     [FromServices] GetOrder getOrder) =>
+        //     Ok(getOrder.Do(id));
 
-        public OrdersController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-        public IActionResult GetOrders(int status) => Ok(new GetOrders(_context).Do(status));
+        //[HttpPut("{id}")]
+        // public async Task<IActionResult> UpdateOrder(
+        //     int id,
+        //     [FromServices] UpdateOrder updateOrder)
+        //     {
+        //     var success = await updateOrder.DoAsync(id) > 0;
+        //     if (success)
+        //     {
+        //         return Ok();
+        //     }
+        //     else
+        //     {
+        //         return BadRequest();
+        //     }
+        // }
     }
 }

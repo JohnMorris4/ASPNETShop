@@ -4,18 +4,38 @@
 @{
    
 }
-
-
-<div>
-    @foreach (var product in Model.Cart)
-    {
-        
-    <p>@product.Name</p>
-    <p>@product.Qty</p>
-    <p>@product.Value</p>
-    <p>@product.StockId</p>
-    <hr/>
-        }
+<div class="container">
+    <div class="columns">
+        <div class="column is-8 is-offset-2">
+            @foreach (var product in Model.Cart)
+                {
+                    <div class="level">
+                        <div class="level-item">
+                            <img src="~/images/HostGator.png" alt="">
+                        </div>
+                        <div class="level-item">
+                            <p class="title">
+                                @product.Name
+                            </p>
+                            <p class="subtitle">
+            
+                            </p>
+                        </div>
+                        <div class="level-item">
+                            <p>@product.Qty</p>
+                        </div>
+                        <div class="level-item">
+                            <p>@product.RealValue</p>
+                        </div>
+                    </div>
+                }
+            <div class="has-text-right">
+                <a class="button is-text" asp-page="/Index" >Return To Shop</a>
+                <a class="button is-success" asp-page="/Checkout/CustomerInformation">Checkout</a>
+            </div>
+        </div>
+    </div>
+    
 
 </div>
-<vc:cart view="Small"></vc:cart>
+

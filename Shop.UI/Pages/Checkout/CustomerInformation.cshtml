@@ -4,46 +4,86 @@
 @{
 }
 
+<div class="columns">
+    <div class="column is-4">
+    
+        <form method="post">
+            <div class="field">
+                <p class="control">
+                    <label class="label">First Name</label>
+                    <input class="input" asp-for="CustomerInformation.FirstName" placeholder="First Name"/>
+                </p>
 
-<div>
-    <form  method="post">
-        <div>
-        <input asp-for="CustomerInformation.FirstName" placeholder="First Name"/>
-        <span asp-validation-for="CustomerInformation.FirstName"></span>
-        </div>
-        <div>
-        <input asp-for="CustomerInformation.LastName" placeholder="Last Name"/>
-        <span asp-validation-for="CustomerInformation.LastName"></span>
-        </div>
-        <div>
-        <input asp-for="CustomerInformation.Address1" placeholder="Address"/>
-        <span></span>
-        </div>
-        <div>
-        <input asp-for="CustomerInformation.Address2" placeholder="Address 2" />
-        <span></span>
-        </div>
-        <div>
-        <input asp-for="CustomerInformation.City" placeholder="City"/>
-        <span></span>
-        </div>
-        <div>
-        <input asp-for="CustomerInformation.State" placeholder="State"/>
-        <span></span>
-        </div>
-        <div>
-        <input asp-for="CustomerInformation.Zipcode" placeholder="Zipcode" />
-        <span></span>
-        </div>
-        <div>
-        <input asp-for="CustomerInformation.Email" placeholder="Email" />
-        <span></span>
-        </div>
-        <div>
-        <input asp-for="CustomerInformation.PhoneNumber" placeholder="Phone Number" />
-        <span></span>
-        </div>
+                <span class="is-warning" asp-validation-for="CustomerInformation.FirstName"></span>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <label class="label">Last Name</label>
+                    <input class="input" asp-for="CustomerInformation.LastName" placeholder="Last Name"/>
+                </p>
+            
+                <span class="is-warning" asp-validation-for="CustomerInformation.LastName"></span>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <label class="label">Address</label>
+                    <input class="input" asp-for="CustomerInformation.Address1" placeholder="Address"/>
+                </p>
+            
+            </div>
+            <div class="field">
+                <p class="control">
+                    <label class="label">Address 2</label>
+                    <input class="input" asp-for="CustomerInformation.Address2" placeholder="Address 2"/>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <label class="label">City</label>
+                    <input class="input" asp-for="CustomerInformation.City" placeholder="City"/>
+                </p>
+            
+           
+            </div>
+            <div class="field">
+                <p class="control">
+                    <label class="label">State</label>
+                    <input class="input" asp-for="CustomerInformation.State" placeholder="State"/>
+                </p>
+            
+           
+            </div>
+            <div class="field">
+                <p class="control">
+                    <label class="label">Zipcode</label>
+                    <input class="input" asp-for="CustomerInformation.Zipcode" placeholder="Zipcode"/>
+                </p>
+            
+                <span></span>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <label class="label">Email</label>
+                    <input class="input" asp-for="CustomerInformation.Email" placeholder="Email"/>
+                </p>
+            
+                <span></span>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <label class="label">Phone Number</label>
+                    <input class="input" asp-for="CustomerInformation.PhoneNumber" placeholder="Phone Number"/>
+                </p>
+            
+                <span></span>
+            </div>
+            <div class="field">
+                <button class="button is-success" type="submit">Submit</button>
+            </div>
         
-        <button type="submit">Submit</button>
-    </form>
+        </form>
+    </div>
+    <div class="column is-6 is-offset-2">
+        <vc:cart view="Default"></vc:cart>
+    </div>
 </div>
