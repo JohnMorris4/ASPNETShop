@@ -22,6 +22,26 @@
                                     <img src="~/images/HostGator.png" alt="Placeholder image">
                                 </figure>
                             </div>
+                            @{
+                                    string message = "";
+                                    string cssClass = "";
+                                    if (p.StockCount == 0)
+                                    {
+                                        cssClass = "is-danger";
+                                        message = $"We only have {p.StockCount} left in stock";
+
+                                    } else if(p.StockCount <= 10)
+                                    {
+                                        cssClass = "is-warning";
+                                        message = $"We only have {p.StockCount} left. More are on the way";
+                                    }
+                                }
+                                @if (p.StockCount <= 10)
+                                {
+                                    <div class="notification is-paddingless has-text-centered @cssClass">
+                                        @message
+                                    </div>
+                                }
                             <div class="card-content">
                                 <p class="title is-4">
                                     @p.Name
@@ -32,9 +52,6 @@
                                 <p class="subtitle">
                                     <span class="has-text-weight-bold">Price: </span>@p.Value
                                 </p>
-                                <div class="content">
-
-                                </div>
                             </div>
                         </div>
                     </a>

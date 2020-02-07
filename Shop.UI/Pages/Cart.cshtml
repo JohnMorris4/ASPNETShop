@@ -1,4 +1,5 @@
 @page
+@using Shop.Domain.Models
 @model Shop.UI.Pages.CartModel
 
 @{
@@ -22,7 +23,24 @@
                             </p>
                         </div>
                         <div class="level-item">
-                            <p>@product.Qty</p>
+                            <div class="columns">
+                                <div class="column">
+                                    <button class="button" type="button" 
+                                            onclick="removeOneFromCart(event)" 
+                                            data-stock-id="@product.StockId"
+                                            id="stock-@product.StockId">-</button>
+                                </div>
+                                <div class="column">
+                                    @product.Qty
+                                </div>
+                                <div class="column">
+                                    <button class="button" type="button" 
+                                            onclick="addOneToCart(event)" 
+                                            data-stock-id="@product.StockId"
+                                            id="stock-@product.StockId">+</button>
+                                </div>
+                            </div>
+                            
                         </div>
                         <div class="level-item">
                             <p>@product.RealValue</p>
@@ -39,3 +57,42 @@
 
 </div>
 
+@section Scripts
+{
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+    <script>
+   var addOneToCart = function(e){
+       var stockId = e.target.dataset.stockId;
+        axios.post("/Cart/AddOne/" + stockId)
+        .then(res => {
+            var id = "stock-" + stockId;
+            var el = document.getElementById(id);
+            
+            var qty = parseInt(el.innerText);
+            
+            el.innerText = (qty + 1);
+            //TODO update qty
+        })   
+        .catch(err => {
+            alert(err.message);
+        }) 
+   }
+   var removeOneFromCart = function(e){
+          var stockId = e.target.dataset.stockId;
+           axios.post("/Cart/RemoveOne/" + stockId)
+           .then(res => {
+               var id = "stock-" + stockId;
+               var el = document.getElementById(id);
+               
+               var qty = parseInt(el.innerText);
+               
+               el.innerText = (qty - 1);
+               //TODO update qty
+           })   
+           .catch(err => {
+               alert(err.message);
+           }) 
+      }
+    </script>
+}

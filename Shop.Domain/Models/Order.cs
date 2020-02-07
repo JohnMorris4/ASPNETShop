@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using Shop.Domain.Enums;
 namespace Shop.Domain.Models
 {
     public class Order
