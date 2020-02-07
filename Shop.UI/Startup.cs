@@ -60,7 +60,11 @@ namespace Shop.UI
             
             services
                 .AddMvc()
-                .AddRazorPagesOptions(options => { options.Conventions.AuthorizeFolder("/Admin"); })
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizeFolder("/Admin");
+                    options.Conventions.AuthorizePage("/Admin/ConfigureUser", "Admin");
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSession(
                 options =>

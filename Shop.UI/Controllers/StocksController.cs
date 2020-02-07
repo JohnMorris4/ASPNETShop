@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.StockAdmin;
 using Shop.Database;
@@ -7,6 +8,7 @@ namespace Shop.UI.Controllers
 {
     
     [Route("[controller]")]
+    [Authorize(Policy = "Manager")]
     public class StocksController : Controller
     {
         private readonly ApplicationDbContext _context;
