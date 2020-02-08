@@ -7,6 +7,7 @@ using Shop.Application.Cart;
 using Shop.Application.Orders;
 using Shop.Database;
 using Stripe;
+using GetOrder = Shop.Application.Cart.GetOrder;
 
 namespace Shop.UI.Pages.Checkout
 {
@@ -23,9 +24,9 @@ namespace Shop.UI.Pages.Checkout
 
        
 
-        public IActionResult OnGet()
+        public IActionResult OnGet([FromServices] GetCustomerInformation getCustomerInformation)
         {
-            var information = new GetCustomerInformation(HttpContext.Session).Do();
+            var information = getCustomerInformation.Do();
             if (information == null)
             {
                 return RedirectToPage("/Checkout/CustomerInformation");
@@ -33,12 +34,12 @@ namespace Shop.UI.Pages.Checkout
             return Page();
         }
 
-        public async Task<IActionResult> OnPost(string stripeEmail, string stripeToken)
+        public async Task<IActionResult> OnPost(string stripeEmail, string stripeToken, [FromServices] GetOrder getOrder)
         {
             var customers = new CustomerService();
             var charges = new ChargeService();
             
-            var CartOrder = new Application.Cart.GetOrder(HttpContext.Session, _ctx).Do();
+            var CartOrder = getOrder.Do();
 
             var customer = customers.Create(new CustomerCreateOptions
             {

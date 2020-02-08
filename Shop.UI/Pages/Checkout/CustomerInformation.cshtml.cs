@@ -20,10 +20,10 @@ namespace Shop.UI.Pages.Checkout
         public AddCustomerInformation.Request CustomerInformation { get; set; }
         
         
-        public IActionResult OnGet()
+        public IActionResult OnGet([FromServices] GetCustomerInformation getCustomerInformation)
         {
             //Get Cart
-            var information = new GetCustomerInformation(HttpContext.Session).Do();
+            var information = getCustomerInformation.Do();
             if (information == null)
             {
                 if (_env.IsDevelopment())
@@ -51,7 +51,7 @@ namespace Shop.UI.Pages.Checkout
             
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost([FromServices] AddCustomerInformation addCustomerInformation)
         {
 
             if (!ModelState.IsValid)
@@ -59,7 +59,7 @@ namespace Shop.UI.Pages.Checkout
                 return Page();
             }
             //Post Cart
-            new AddCustomerInformation(HttpContext.Session).Do(CustomerInformation);
+            addCustomerInformation.Do(CustomerInformation);
             
             return RedirectToPage("Payment");
         }

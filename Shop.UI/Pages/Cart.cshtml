@@ -10,7 +10,7 @@
         <div class="column is-8 is-offset-2">
             @foreach (var product in Model.Cart)
                 {
-                    <div class="level">
+                    <div class="level" id="product-@product.StockId">
                         <div class="level-item">
                             <img src="~/images/HostGator.png" alt="">
                         </div>
@@ -23,21 +23,24 @@
                             </p>
                         </div>
                         <div class="level-item">
-                            <div class="columns">
-                                <div class="column">
+                            <div class="columns is-multiline">
+                                <div class="column is-4">
                                     <button class="button" type="button" 
                                             onclick="removeOneFromCart(event)" 
-                                            data-stock-id="@product.StockId"
-                                            id="stock-@product.StockId">-</button>
+                                            data-stock-id="@product.StockId">-</button>
                                 </div>
-                                <div class="column">
+                                <div class="column is-4">
                                     @product.Qty
                                 </div>
-                                <div class="column">
+                                <div class="column is-4">
                                     <button class="button" type="button" 
                                             onclick="addOneToCart(event)" 
-                                            data-stock-id="@product.StockId"
-                                            id="stock-@product.StockId">+</button>
+                                            data-stock-id="@product.StockId">+</button>
+                                </div>
+                                <div class="column is-12 has-text-centered">
+                                    <a class="has-text-warning" id=""
+                                    data-stock-id="@product.StockId"
+                                    id="stock-@product.StockId">Remove</a>
                                 </div>
                             </div>
                             
@@ -77,7 +80,7 @@
         .catch(err => {
             alert(err.message);
         }) 
-   }
+   };
    var removeOneFromCart = function(e){
           var stockId = e.target.dataset.stockId;
            axios.post("/Cart/RemoveOne/" + stockId)
@@ -88,11 +91,30 @@
                var qty = parseInt(el.innerText);
                
                el.innerText = (qty - 1);
+               // if(isNaN(el.innerText)){
+               //     el.innerText = qty;
+               // }
                //TODO update qty
            })   
            .catch(err => {
-               alert(err.message);
+               alert(err.message
+               );
            }) 
-      }
+      };
+   var removeAllFromCart = function(e) {
+     var stockId = e.target.dataset.stockId;
+                axios.post("/Cart/RemoveAll/" + stockId)
+                .then(res => {
+                    var id = "product-" + stockId;
+                    var el = document.getElementById(id);
+                   
+                    
+                   el.outerHTML = ""; 
+                   
+                })   
+                .catch(err => {
+                    alert(err.message);
+                }) 
+   };
     </script>
 }

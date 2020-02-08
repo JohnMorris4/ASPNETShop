@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shop.Application.Infrastructure;
 using Shop.Database;
+using Shop.UI.Infrastructure;
 using Stripe;
 
 namespace Shop.UI
@@ -28,6 +30,8 @@ namespace Shop.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+             services.AddHttpContextAccessor();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -72,8 +76,9 @@ namespace Shop.UI
                     options.Cookie.Name = "Cart"; 
                     options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
                 });
-            
-            
+
+            services.AddTransient<ISessionManager, SessionManager>();
+           
             
             StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
 

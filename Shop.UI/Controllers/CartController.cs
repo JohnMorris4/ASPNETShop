@@ -1,28 +1,21 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Cart;
-using Shop.Database;
+//using Shop.Database;
 
 namespace Shop.UI.Controllers
 {
     [Route("[controller]/[action]")]
     public class CartController : Controller
     {
-        private readonly ApplicationDbContext _ctx;
-
-        public CartController(ApplicationDbContext ctx)
-        {
-            _ctx = ctx;
-        }
         [HttpPost("{stockId}")]
-        public async Task<IActionResult> AddOne(int stockId)
+        public async Task<IActionResult> AddOne(int stockId, [FromServices] AddToCart addToCart)
         {
             var request = new AddToCart.Request
             {
                 StockId = stockId,
                 Qty = 1
             };
-            var addToCart = new AddToCart(HttpContext.Session, _ctx);
             var success = await addToCart.Do(request);
             if (success)
             {
@@ -32,21 +25,37 @@ namespace Shop.UI.Controllers
             return BadRequest("Failed to add to cart");
         }
         
-        public async Task<IActionResult> RemoveOne(int stockId)
+        public async Task<IActionResult> RemoveOne(int stockId, [FromServices] RemoveFromCart removeFromCart)
         {
             var request = new RemoveFromCart.Request
             {
                 StockId = stockId,
                 Qty = 1
             };
-            var addToCart = new RemoveFromCart(HttpContext.Session, _ctx);
-            var success = await addToCart.Do(request);
+            
+            var success = await removeFromCart.Do(request);
             if (success)
             {
-                return Ok("Item added to cart");
+                return Ok("Item removed from cart");
             }
 
-            return BadRequest("Failed to add to cart");
+            return BadRequest("Failed to remove item from cart");
+        }
+        public async Task<IActionResult> RemoveAll(int stockId, [FromServices] RemoveFromCart removeFromCart)
+        {
+            var request = new RemoveFromCart.Request
+            {
+                StockId = stockId,
+                All = true
+            };
+           
+            var success = await removeFromCart.Do(request);
+            if (success)
+            {
+                return Ok("Item removed all from cart");
+            }
+
+            return BadRequest("Failed to remove all item from cart");
         }
     }
 }

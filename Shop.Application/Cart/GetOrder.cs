@@ -1,21 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using Shop.Application.Infrastructure;
 using Shop.Database;
-using Shop.Domain.Models;
 
 namespace Shop.Application.Cart
 {
     public class GetOrder
     {
-        private readonly ISession _session;
+        private readonly ISessionManager _sessionManager;
         private readonly ApplicationDbContext _ctx;
 
-        public GetOrder(ISession session, ApplicationDbContext ctx)
+        public GetOrder(ISessionManager sessionManager, ApplicationDbContext ctx)
         { 
-            _session = session;
+            _sessionManager = sessionManager;
             _ctx = ctx;
         }
 
@@ -54,23 +52,21 @@ namespace Shop.Application.Cart
         
         public Response Do()
         {
-            var cart = _session.GetString("cart");
-            var cartList = JsonConvert.DeserializeObject<List<CartProduct>>(cart);
+            var cart = _sessionManager.GetCart();
 
             var listOfProducts = _ctx.Stock
                 .Include(x => x.Product)
-                .Where(x => cartList.Any(y => y.StockId == x.Id))
+                .Where(x => cart.Any(y => y.StockId == x.Id))
                 .Select(x => new Product
                 {
                     ProductId = x.ProductId,
                     StockId = x.Id,
                     Value = (int)(x.Product.Value * 100),
-                    Qty = cartList.FirstOrDefault(y => y.StockId == x.Id).Qty
+                    Qty = cart.FirstOrDefault(y => y.StockId == x.Id).Qty
                 }).ToList();
             
-            var customerInfoString = _session.GetString("customer-info");
-            var customerInformation = JsonConvert.DeserializeObject<Shop.Domain.Models.CustomerInformation>(customerInfoString);
-            
+            var customerInformation = _sessionManager.GetCustomerInformation();
+          
             
             return new Response
             {

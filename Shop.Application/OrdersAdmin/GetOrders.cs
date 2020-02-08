@@ -8,8 +8,6 @@ namespace Shop.Application.OrdersAdmin
     public class GetOrders
     {
         private readonly ApplicationDbContext _ctx;
-
-
         public GetOrders(ApplicationDbContext ctx)
         {
             _ctx = ctx;
